@@ -21,11 +21,11 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -var="gcp_credentials=$GOOGLE_CREDENTIALS"
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false -var="gcp_credentials=$GOOGLE_CREDENTIALS"
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
