@@ -1,27 +1,31 @@
-name: Terraform GCP VM Deploy
+name: 'Terraform Plan'
 
 on:
   workflow_dispatch:
-
+    
 jobs:
   terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Write GCP Credentials
-        run: echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
+        uses: hashicorp/setup-terraform@v2
 
       - name: Terraform Init
         run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Terraform Plan
-        run: terraform plan -var="gcp_credentials=$(cat credentials.json)"
+        run: terraform plan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var="gcp_credentials=$(cat credentials.json)"
+        run: terraform apply -auto-approve -input=false
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
