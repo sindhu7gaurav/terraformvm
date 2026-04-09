@@ -8,6 +8,14 @@ variable "gcp_credentials" {
   type = string
 }
 
+# Enable required APIs
+resource "google_project_service" "compute_api" {
+  project = "diesel-equator-491908-q2"
+  service = "compute.googleapis.com"
+
+  disable_on_destroy = false
+}
+
 resource "google_compute_instance" "vm_instance" {
   name         = "terraform-vm"
   machine_type = "e2-medium"
