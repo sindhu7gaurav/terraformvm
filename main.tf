@@ -1,7 +1,7 @@
 provider "google" {
   project     = "diesel-equator-491908-q2"   # 👈 replace with your real project ID
   region      = "us-central1"
-  credentials = jsondecode(secrets.GCP_CREDENTIALS)
+  credentials = var.gcp_credentials
 }
 
 variable "gcp_credentials" {
