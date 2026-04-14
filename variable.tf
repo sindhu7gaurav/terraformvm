@@ -21,7 +21,7 @@ variable "network_link" {
 
 variable "subnetwork_link" {
   description = "Self-link of the Shared Subnet"
-default = "google_compute_subnetwork.subnet.name"
+default = "google_compute_subnetwork.subnet.id"
 }
 
 variable "zone" {
