@@ -12,9 +12,8 @@ resource "google_compute_instance" "vm" {
   }
 
   network_interface {
-    network            = var.network_link
-    subnetwork         = var.subnetwork_link
-    network_project    = var.host_project_id
+    network    = var.network_link
+    subnetwork = var.subnetwork_link
     access_config {}
   }
 
