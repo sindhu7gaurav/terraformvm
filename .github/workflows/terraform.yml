@@ -2,16 +2,7 @@ name: 'Terraform Plan and Apply'
 
 on:
   workflow_dispatch:
-    inputs:
-      action:
-        description: 'Choose action'
-        required: true
-        default: 'plan'
-        type: choice
-        options:
-          - plan
-          - apply
-
+  
 jobs:
   terraform:
     name: 'Terraform'
