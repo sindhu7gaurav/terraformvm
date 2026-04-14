@@ -16,12 +16,12 @@ variable "os_type" {
 
 variable "network_link" {
   description = "Self-link of the Shared VPC"
-  default = "google_compute_network.shared_vpc.self_link"
+  default = google_compute_network.shared_vpc.self_link
 }
 
 variable "subnetwork_link" {
   description = "Self-link of the Shared Subnet"
-default = "google_compute_subnetwork.subnet.id"
+default = google_compute_subnetwork.subnet.id
 }
 
 variable "zone" {
