@@ -6,24 +6,22 @@ variable "project_id" {
 
 variable "name" {
   description = "Name of the VM instance"
-  type        = string
   default = "TestVM1"
 }
 
 variable "os_type" {
   description = "Either 'linux' or 'windows'"
-  type        = string
   default = "windows"
 }
 
 variable "network_link" {
   description = "Self-link of the Shared VPC"
-  type        = string
+  default = "google_compute_network.shared_vpc.self_link"
 }
 
 variable "subnetwork_link" {
   description = "Self-link of the Shared Subnet"
-  type        = string
+default = "shared-subnet"
 }
 
 variable "zone" {
