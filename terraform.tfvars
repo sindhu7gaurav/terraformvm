@@ -1,5 +1,5 @@
 project_id        = "prabhat-new-project-2026"
-name               = "TestVM1"
+name               = "testvm1"
 os_type            = "windows"
 machine_type       = "e2-medium"
 zone               = "asia-south1-c"
