@@ -1,0 +1,8 @@
+project_id      = "prabhat-new-project-2026"
+name             = "TestVM1"
+os_type          = "windows"
+zone             = "asia-south1-c"
+region           = "asia-south1"
+host_project_id = "YOUR_HOST_PROJECT_ID"
+network_link    = "projects/YOUR_HOST_PROJECT_ID/global/networks/shared-vpc-name"
+subnetwork_link = "projects/YOUR_HOST_PROJECT_ID/regions/asia-south1/subnetworks/shared-subnet-name"
