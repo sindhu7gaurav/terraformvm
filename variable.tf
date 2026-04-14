@@ -1,16 +1,19 @@
 variable "project_id" {
   description = "The project where this specific VM will be deployed"
   type        = string
+  default = "prabhat-new-project-2026"
 }
 
 variable "name" {
   description = "Name of the VM instance"
   type        = string
+  default = "TestVM1"
 }
 
 variable "os_type" {
   description = "Either 'linux' or 'windows'"
   type        = string
+  default = "windows"
 }
 
 variable "network_link" {
