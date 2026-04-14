@@ -9,6 +9,7 @@ terraform {
       version = "~> 0.9"
     }
   }
+}
 
   provider "google" {
   region = var.region
