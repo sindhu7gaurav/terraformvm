@@ -9,12 +9,9 @@ resource "google_compute_instance" "vm" {
       image = var.os_type == "windows" ? "windows-cloud/windows-2022" : "debian-cloud/debian-12"
     }
   }
-
-   network_interface {
-    network            = var.network_link
-    subnetwork         = var.subnetwork_link
-    network_project    = var.host_project_id
-    access_config {}
+network_interface {
+    network    = var.network_link
+    subnetwork = var.subnetwork_link
   }
   labels = {
     patch_group = "production"
