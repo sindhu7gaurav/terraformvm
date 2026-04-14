@@ -1,34 +1,23 @@
-provider "google" {
-  project     = "prabhat-new-project-2026"   # 👈 replace with your real project ID
-  region      = "us-central1"
-  credentials = var.gcp_credentials
-}
-
-variable "gcp_credentials" {
-  type = string
-}
-
-# Enable required APIs
-resource "google_project_service" "compute_api" {
-  project = "prabhat-new-project-2026"
-  service = "compute.googleapis.com"
-
-  disable_on_destroy = false
-}
-
-resource "google_compute_instance" "vm_instance" {
-  name         = "terraform-testvm"
-  machine_type = "e2-medium"
-  zone         = "us-central1-b"
+resource "google_compute_instance" "vm" {
+  name         = var.name
+  project      = var.project_id
+  machine_type = var.os_type == "windows" ? "e2-medium" : "e2-micro"
+  zone         = "asia-south1-c"
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = var.os_type == "windows" ? "windows-cloud/windows-2022" : "debian-cloud/debian-12"
     }
   }
 
   network_interface {
-    network = "default"
+    network    = var.network_link
+    subnetwork = var.subnetwork_link
     access_config {}
+  }
+
+  labels = {
+    patch_group = "production"
+    backup      = "daily"
   }
 }
