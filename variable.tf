@@ -32,3 +32,9 @@ variable "zone" {
 variable "region" {
  default = "asia-south1"
 }
+
+variable "gcp_credentials" {
+  description = "GCP service account credentials JSON"
+  type        = string
+  sensitive   = true
+}
