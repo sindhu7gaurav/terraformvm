@@ -40,17 +40,7 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan \
-            -var="project_id=${{ vars.GCP_PROJECT_ID }}" \
-            -var="name=${{ vars.VM_NAME }}" \
-            -var="os_type=${{ vars.OS_TYPE }}" \
-            -var="machine_type=${{ vars.MACHINE_TYPE }}" \
-            -var="zone=${{ vars.GCP_ZONE }}" \
-            -var="region=${{ vars.GCP_REGION }}" \
-            -var="host_project_id=${{ vars.HOST_PROJECT_ID }}" \
-            -var="network_link=${{ vars.NETWORK_LINK }}" \
-            -var="subnetwork_link=${{ vars.SUBNETWORK_LINK }}" \
-            -out=tfplan
+          terraform plan -var-file="terraform.tfvars" -out=tfplan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
