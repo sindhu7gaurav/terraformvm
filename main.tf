@@ -10,12 +10,12 @@ resource "google_compute_instance" "vm" {
     }
   }
 
-  network_interface {
-    network    = var.network_link
-    subnetwork = var.subnetwork_link
+   network_interface {
+    network            = var.network_link
+    subnetwork         = var.subnetwork_link
+    network_project    = var.host_project_id
     access_config {}
   }
-
   labels = {
     patch_group = "production"
     backup      = "daily"
