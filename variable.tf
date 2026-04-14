@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "The GCP project where the VM will be deployed"
   type        = string
+  default = "prabhat-new-project-2026"
 }
 
 variable "name" {
