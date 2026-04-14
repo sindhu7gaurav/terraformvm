@@ -1,8 +1,17 @@
-name: 'Terraform Plan'
+name: 'Terraform Plan and Apply'
 
 on:
   workflow_dispatch:
-    
+    inputs:
+      action:
+        description: 'Choose action'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -20,12 +29,39 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
+      - name: Terraform Format Check
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Validate
+        run: terraform validate
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+
       - name: Terraform Plan
-        run: terraform plan -var="gcp_credentials=$GOOGLE_CREDENTIALS"
+        run: |
+          terraform plan \
+            -var="project_id=${{ vars.GCP_PROJECT_ID }}" \
+            -var="name=${{ vars.VM_NAME }}" \
+            -var="os_type=${{ vars.OS_TYPE }}" \
+            -var="machine_type=${{ vars.MACHINE_TYPE }}" \
+            -var="zone=${{ vars.GCP_ZONE }}" \
+            -var="region=${{ vars.GCP_REGION }}" \
+            -var="host_project_id=${{ vars.HOST_PROJECT_ID }}" \
+            -var="network_link=${{ vars.NETWORK_LINK }}" \
+            -var="subnetwork_link=${{ vars.SUBNETWORK_LINK }}" \
+            -out=tfplan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false -var="gcp_credentials=$GOOGLE_CREDENTIALS"
+        if: github.event.inputs.action == 'apply'
+        run: terraform apply -auto-approve tfplan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Show Outputs
+        if: github.event.inputs.action == 'apply'
+        run: terraform output
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
