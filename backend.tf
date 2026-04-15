@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "your-gcs-bucket-name"
+    bucket = "terraform-state-sindhu"
     prefix = "terraform/state"
   }
 }
