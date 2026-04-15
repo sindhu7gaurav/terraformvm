@@ -2,7 +2,16 @@ name: 'Terraform Plan and Apply'
 
 on:
   workflow_dispatch:
-  
+    inputs:
+      action:
+        description: 'Choose action'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -36,7 +45,8 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false -var="gcp_credentials=$GOOGLE_CREDENTIALS"
+        if: github.event.inputs.action == 'apply'
+        run: terraform apply -auto-approve -input=false tfplan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
