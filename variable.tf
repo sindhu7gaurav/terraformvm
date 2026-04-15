@@ -7,7 +7,7 @@ variable "project_id" {
 variable "name" {
   description = "Name of the VM instance"
   type        = string
-  default     = "TestVM1"
+  default     = "testvm2"
 }
 
 variable "os_type" {
